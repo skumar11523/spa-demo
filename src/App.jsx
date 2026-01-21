@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import react,{ useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+function App()
+{
+  const [employees,setEmployees]=useState([]);
+  const [name,setName] = useState("");  
+  const [role,setRole]= useState("");
+
+  const addEmployee = () => 
+    {
+      if(name && role)
+      {
+        setEmployees([...employees,{name,role}]);
+        setName("");
+        setRole("");
+      }
+    };
+    return (
+      <div className="container">
+       
+        <h3>EmployeeDetails</h3>
+        <input
+        type="text"
+        placeholder="Enter Employee name"
+        value={name}
+        onChange={(e)=>setName(e.target.value)}
+        />
+         <input
+        type="text"
+        placeholder="Enter Employee Role"
+        value={role}
+        onChange={(e)=>setRole(e.target.value)}
+        />
+        <button onClick={addEmployee}>Add Employee</button>
+        <ul>
+          {employees.map((emp,index) => <li key={index}>{emp.name}-{emp.role}</li>)}
+        </ul>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    );
 }
-
-export default App
+export default App;
